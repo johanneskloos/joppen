@@ -1,4 +1,4 @@
-# prettyprint: An Oppen-style pretty-printer for Java.
+# joppen: An Oppen-style pretty-printer for Java.
 
 This library provies an implementation of Oppen's pretty-printing algorithm, as first
 described in Derek C. Oppen, "Prettyprinting", TOPLAS Vol. 2, No. 4, Oct. 1980, pp. 465-483.
