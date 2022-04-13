@@ -1,0 +1,25 @@
+name: joppen-continuous-integration
+on: [ push, pull_request ] # Triggers the workflow on push or pull request events
+
+env:
+  BUILD_OPTS: ""
+  CONFIG_OVERRIDES: ""
+  MAVEN_OPTS: ""
+
+jobs:
+  build-joppen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # Checks out a copy of the repository on the ubuntu-latest machine
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '8' # The JDK version to make available on the path.
+          # java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
+          # architecture: x64 # (x64 or x86) - defaults to x64
+      - uses: actions/cache@v2 # Cache local Maven repository to reuse dependencies
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - run: mvn -B ${BUILD_OPTS} clean install
